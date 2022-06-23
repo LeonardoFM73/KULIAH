@@ -4,19 +4,17 @@
 #define BLYNK_TEMPLATE_ID "TMPLnRt1R9Qz"
 #define BLYNK_DEVICE_NAME "Tugas Akhir IoT"
 #define BLYNK_AUTH_TOKEN "tx54DfyoEDp7B0UpJvFxnNpbHveiLpc7"
-#define push_button 0
+#define but 16
 #define pot A0
 
 char auth[] = BLYNK_AUTH_TOKEN;
-char ssid[] = "nara";
-char pass[] = "00000000";
+char ssid[] = "";
+char pass[] = "";
 
 BlynkTimer timer;
 
 void myTimerEvent()
 {
-    // You can send any value at any time.
-    // Please don't send more that 10 values per second.
     Blynk.virtualWrite(V5, millis() / 1000);
 }
 
@@ -32,13 +30,13 @@ void setup()
 
 void loop()
 {
-    int data = digitalRead(push_button);
-    int pot_data = analogRead(pot);
-    Serial.println("PB : " + String(data));
-    Serial.println("Pot : " + String(pot_data));
-    Blynk.virtualWrite(V0, pot_data);
-    Blynk.virtualWrite(V1, data);
-    if (pot_data > 800)
+    int butData = digitalRead(but);
+    int potData = analogRead(pot);
+    Serial.println("Push Button : " + String(butData));
+    Serial.println("Potensio    : " + String(potData));
+    Blynk.virtualWrite(V0, potData);
+    Blynk.virtualWrite(V1, butData);
+    if (potData > 800)
         Blynk.virtualWrite(V2, 1);
     else
         Blynk.virtualWrite(V2, 0);
